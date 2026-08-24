@@ -1,0 +1,1 @@
+"""Megalomino tours package."""

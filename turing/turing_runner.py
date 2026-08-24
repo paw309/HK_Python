@@ -87,7 +87,7 @@ def get_user_inputs() -> Tuple[int, int, int, int, int]:
     print("  Turing Machine with Chess Pieces")
     print("=" * 60)
     print()
-    board_size         = _prompt_range("Board size",       5,  16)
+    board_size         = _prompt_range("Board size",       5,  8)
     target_length      = board_size * board_size - 1
     print(f"  Target length set to {target_length} ({board_size}×{board_size} - 1)")
     num_pieces         = _prompt_choice("Number of pieces", [2, 3, 4])

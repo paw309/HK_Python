@@ -1,0 +1,9 @@
+pyproject.toml
+sharedlib/_init_.py
+sharedlib/chess_clock.py
+sharedlib/clock_cli.py
+sharedlib/piecekeeper.py
+sharedlib.egg-info/PKG-INFO
+sharedlib.egg-info/SOURCES.txt
+sharedlib.egg-info/dependency_links.txt
+sharedlib.egg-info/top_level.txt

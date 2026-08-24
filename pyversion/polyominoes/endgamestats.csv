@@ -1,0 +1,69 @@
+puzzle_code,game_mode,piece_name,board_size,shape_type,density,colors,mobility_rating,agility_rating,challenge_rating,endgame_reason,units_found,total_units,unit_completion_ratio,shapes_completed,total_shapes,shape_completion_ratio,total_moves,completion_score,final_score,elapsed_time_seconds
+DBEK-COBT-L627-VYB7,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,no legal moves,15,16,0.9375,3,4,0.75,34,1688,4170,103
+DBEC-V3KU-7BNR-QUTH,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,no legal moves,15,16,0.9375,3,4,0.75,54,1688,4170,95
+DBEI-7ILZ-XOFX-USHR,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,no legal moves,14,16,0.875,3,4,0.75,55,1625,4015,89
+DBEA-YQXE-K4HN-7LCC,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,no legal moves,14,16,0.875,3,4,0.75,39,1625,4015,69
+DBEF-G46B-EWWT-JALM,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,no legal moves,13,16,0.8125,2,4,0.5,46,1312,3241,107
+DBEE-UEN7-6POA-LBAW,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,resigned,0,16,0.0,0,4,0.0,1,0,0,3
+DBEA-OOMJ-FGPB-2C4I,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,resigned,0,16,0.0,0,4,0.0,1,0,0,2
+DBEG-RY64-7MD3-YFVZ,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,resigned,1,16,0.0625,0,4,0.0,1,62,153,3
+DBEL-BMHM-GN26-47ID,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,resigned,0,16,0.0,0,4,0.0,1,0,0,1
+DBEO-Y4WP-A55C-KZI2,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,resigned,1,16,0.0625,0,4,0.0,1,62,153,10
+DAJO-WQZ4-LJPT-G2JE,freestyle,knight,8,domino,high,random,3,3,3.0588235294117645,resigned,1,16,0.0625,0,8,0.0,1,62,190,1
+DAJG-2CVZ-6ACF-T7V2,freestyle,knight,8,domino,high,random,3,3,3.0588235294117645,resigned,0,16,0.0,0,8,0.0,1,0,0,1
+DAJF-MCZT-R7BL-YOV2,freestyle,knight,8,domino,high,random,3,3,3.0588235294117645,resigned,0,16,0.0,0,8,0.0,1,0,0,12
+DAJB-D4OY-JWRX-OJKB,freestyle,knight,8,domino,high,random,3,3,3.0588235294117645,resigned,0,16,0.0,0,8,0.0,1,0,0,1
+DAJB-D4OY-JWRX-OJKB,freestyle,knight,8,domino,high,random,3,3,3.0588235294117645,resigned,0,16,0.0,0,8,0.0,1,0,0,10
+DBEF-JXEO-4T6Y-5VRG,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,resigned,2,16,0.125,0,4,0.0,9,125,309,12
+DBEP-WMV2-EHTQ-BSPY,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,resigned,1,16,0.0625,0,4,0.0,5,62,153,13
+DBEB-DDYK-NEV3-QLLC,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,resigned,0,16,0.0,0,4,0.0,1,0,0,6
+DBEJ-HOSI-MINY-JEQC,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,resigned,1,16,0.0625,0,4,0.0,4,62,153,7
+DBEC-OP32-TYPH-7WKU,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,resigned,0,16,0.0,0,4,0.0,3,0,0,32
+DBEM-W7RQ-PAHT-IHI4,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,all shapes completed,16,16,1.0,4,4,1.0,45,2000,4941,68
+DBEF-42GJ-65HI-IXTZ,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,no legal moves,15,16,0.9375,3,4,0.75,55,1688,4170,92
+CVSA-F6OY-CU7V-OHNG,blind draw,knight,5,pentomino,low,same,3,4,2.5294117647058822,all shapes completed,5,5,1.0,1,1,1.0,22,2000,5059,21
+CAJM-A4DV-UCDD-33FG,freestyle,knight,16,domino,high,random,3,3,3.0588235294117645,resigned,16,64,0.25,8,32,0.25,49,500,1529,78
+DBEG-OW5B-IGSL-ZOFX,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,all shapes completed,16,16,1.0,4,4,1.0,48,2000,4941,146
+DBFH-3EOF-6OVG-ERIT,freestyle,knight,8,tetromino,medium,random,3,3,2.764705882352941,all shapes completed,16,16,1.0,4,4,1.0,53,2000,5529,118
+DBAN-U6LW-XSSD-YDLI,freestyle,knight,8,tetromino,low,unique,3,3,2.1764705882352944,resigned,0,8,0.0,0,2,0.0,4,0,0,10
+DKFC-CJ2D-J5XJ-IN5T,freestyle,knight,10,hexomino,medium,random,3,4,2.5294117647058822,all shapes completed,24,24,1.0,4,4,1.0,68,2000,5059,139
+DBEJ-7QVC-ZPD6-QTKB,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,all shapes completed,16,16,1.0,4,4,1.0,41,2000,4941,55
+DBEB-V7P5-4JOW-Z7HQ,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,no legal moves,14,16,0.875,2,4,0.5,60,1375,3397,71
+DBEB-V7P5-4JOW-Z7HQ,share,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,resigned,3,16,0.1875,0,4,0.0,13,188,464,20
+DFVJ-RAQT-T5LB-WUEV,freestyle,knight,9,pentomino,medium,random,3,4,2.5294117647058822,all shapes completed,20,20,1.0,4,4,1.0,54,2000,5059,68
+DMVK-NIWW-TTQ4-XBCU,freestyle,knight,11,triomino,medium,random,3,3,2.764705882352941,resigned,0,27,0.0,0,9,0.0,2,0,0,2
+DFVJ-RAQT-T5LB-WUEV,share,knight,9,pentomino,medium,random,3,4,2.5294117647058822,no legal moves,16,20,0.8,3,4,0.75,40,1550,3921,48
+DBEG-IUJX-GZNW-3XVI,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,no legal moves,10,16,0.625,2,4,0.5,37,1125,2779,46
+DBEG-IUJX-GZNW-3XVI,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,no legal moves,15,16,0.9375,3,4,0.75,52,1688,4170,99
+DBEM-W7DM-37RC-H52C,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,all shapes completed,16,16,1.0,4,4,1.0,47,2000,4941,139
+DJJA-DDBT-XD6V-Z3H6,freestyle,knight,10,tetromino,high,random,3,3,3.0588235294117645,no legal moves,22,28,0.7857142857142857,4,7,0.5714285714285714,77,1357,4151,5155
+DBEP-PDYK-HNSW-423P,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,all shapes completed,16,16,1.0,4,4,1.0,51,2000,4941,76
+DBEJ-AXYE-23RU-2P46,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,no legal moves,12,16,0.75,2,4,0.5,47,1250,3088,66
+DBEM-HDVO-6ARL-BWF7,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,no legal moves,15,16,0.9375,3,4,0.75,53,1688,4170,87
+DBEI-CUGE-4A5K-UOVX,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,no legal moves,13,16,0.8125,3,4,0.75,56,1562,3859,73
+CZEA-UOK3-JHQQ-E4BZ,freestyle,knight,6,tetromino,medium,unique,3,3,2.4705882352941178,no legal moves,4,8,0.5,0,2,0.0,29,500,1235,36
+CZEK-CBBX-GTJQ-PUP3,freestyle,knight,6,tetromino,medium,unique,3,3,2.4705882352941178,all shapes completed,8,8,1.0,2,2,1.0,26,2000,4941,30
+DBEE-MKWS-I3E2-U32T,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,no legal moves,15,16,0.9375,3,4,0.75,58,1688,4170,101
+DVEJ-X6VU-GSDP-7VRR,freestyle,knight,13,tetromino,medium,unique,3,3,2.4705882352941178,resigned,0,36,0.0,0,9,0.0,1,0,0,2
+DBED-PTJE-22GJ-7LDN,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,no legal moves,15,16,0.9375,3,4,0.75,50,1688,4170,126
+DBEF-NYNM-IQMA-ECWF,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,resigned,0,16,0.0,0,4,0.0,3,0,0,5
+DBEJ-6PUB-E4QT-V37D,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,no legal moves,15,16,0.9375,3,4,0.75,52,1688,4170,92
+DBEJ-NLRP-IP7V-Q4LE,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,no legal moves,13,16,0.8125,3,4,0.75,47,1562,3859,91
+DBEM-WQCA-RDQS-KLDQ,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,no legal moves,15,16,0.9375,3,4,0.75,56,1688,4170,79
+DBEM-LCIQ-IS4X-NAHA,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,no legal moves,15,16,0.9375,3,4,0.75,39,1688,4170,69
+DBEA-CRVY-DH6H-GDMR,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,all shapes completed,16,16,1.0,4,4,1.0,49,2000,4941,98
+DBEF-ALW7-ELWE-2YU3,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,no legal moves,12,16,0.75,2,4,0.5,51,1250,3088,77
+DBEE-67BV-77B3-G7JQ,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,no legal moves,14,16,0.875,3,4,0.75,50,1625,4015,95
+DBEJ-PF2U-BKX2-A6PE,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,no legal moves,15,16,0.9375,3,4,0.75,54,1688,4170,76
+DBEA-3G7X-QG5R-X24Q,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,no legal moves,15,16,0.9375,3,4,0.75,58,1688,4170,114
+DBEN-RLRE-5XEU-S3YL,freestyle,knight,8,tetromino,medium,unique,3,3,2.4705882352941178,all shapes completed,16,16,1.0,4,4,1.0,43,2000,4941,53
+DCEO-XTWT-JA7C-6CQB,regular,knight,8,pentomino,medium,unique,2,3,2.6,no legal moves,14,15,0.9333333333333333,2,3,0.6666666666666666,55,1600,4160,99
+DDEM-UUIL-NH3O-NTS2,regular,knight,8,heptomino,medium,unique,2,3,3.4,resigned,0,14,0.0,0,2,0.0,2,0,0,15
+DQFF-NR6Q-KTTR-YEON,blind draw,knight,12,monomino,medium,random,2,0,3.0,no legal moves,26,29,0.896551724137931,26,29,0.896551724137931,119,1793,5379,206
+DCEH-5CZN-J35D-GBJO,regular,knight,8,pentomino,medium,unique,2,3,2.6,no legal moves,14,15,0.9333333333333333,2,3,0.6666666666666666,61,1600,4160,83
+DCEG-GAUK-CK5D-BWU4,regular,knight,8,pentomino,medium,unique,2,3,2.6,resignation,1,15,0.06666666666666667,0,3,0.0,1,67,174,0
+DCEF-ICNN-VVAI-TIU5,regular,knight,8,pentomino,medium,unique,2,3,2.6,no legal moves,14,15,0.9333333333333333,2,3,0.6666666666666666,40,1600,4160,56
+DCEG-WYXU-GGEZ-X4K4,regular,knight,8,pentomino,medium,unique,2,3,2.6,no legal moves,14,15,0.9333333333333333,2,3,0.6666666666666666,39,1600,4160,49
+DCEG-JE6H-UADA-2QOY,regular,knight,8,pentomino,medium,unique,2,3,2.6,all shapes found,15,15,1.0,3,3,1.0,61,2000,5200,71
+C4EC-ZRZV-RC76-QYGH,regular,knight,6,mixed,medium,unique,2,3,4.3,all shapes found,8,8,1.0,3,3,1.0,17,2000,8600,16
+DCEG-QMZ3-A54W-OIBC,regular,wazir,8,pentomino,medium,unique,3,0,2.9,all shapes found,15,15,1.0,3,3,1.0,34,2000,5800,34
