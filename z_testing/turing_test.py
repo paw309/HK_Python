@@ -19,24 +19,19 @@ RULESETS = ["2-cycle", "3-cycle", "4-cycle", "6-cycle"]
 
 
 # --- State Transition Engine ---
-def get_next_state(ruleset_name, active_idx, target_r, target_c, parity_count, pieces):
-    """Calculates the next piece index and updated parity state based on ruleset logic."""
+def get_next_state(ruleset_name, active_idx, target_r, target_c):
+    """Calculates the next piece index based on ruleset logic."""
     is_dark = (target_r + target_c) % 2 == 1
 
     if ruleset_name == "2-cycle":
-        next_idx = 1 if active_idx == 0 else 0
-        return next_idx, parity_count
+        return (active_idx + 1) % 2
 
     elif ruleset_name == "3-cycle":
-        next_idx = (active_idx + 1) % 3
-        return next_idx, parity_count
+        return (active_idx + 1) % 3
 
     elif ruleset_name == "4-cycle":
-        if active_idx == 0:  # Piece A
-            next_idx = 1 if parity_count % 2 == 0 else 2
-            return next_idx, parity_count + 1
-        else:  # Piece B or C always returns to A
-            return 0, parity_count
+        # Linear 4-piece state rotation: 0 -> 1 -> 2 -> 3 -> 0
+        return (active_idx + 1) % 4
 
     elif ruleset_name == "6-cycle":
         # 6-cycle (color-based) transition logic:
@@ -44,12 +39,11 @@ def get_next_state(ruleset_name, active_idx, target_r, target_c, parity_count, p
         # B + black -> C, B + white -> A
         # C + black -> A, C + white -> B
         if active_idx == 0:
-            next_idx = 1 if is_dark else 2
+            return 1 if is_dark else 2
         elif active_idx == 1:
-            next_idx = 2 if is_dark else 0
+            return 2 if is_dark else 0
         else:  # active_idx == 2
-            next_idx = 0 if is_dark else 1
-        return next_idx, parity_count
+            return 0 if is_dark else 1
 
 
 # --- Graph Generator ---
@@ -73,7 +67,7 @@ def find_hamiltonian_path(board_size, ruleset_name, pieces, start_r, start_c):
     start_idx = start_r * board_size + start_c
     initial_visited = 1 << start_idx
 
-    def dfs(r, c, active_piece_idx, visited_mask, parity_count, path):
+    def dfs(r, c, active_piece_idx, visited_mask, path):
         if visited_mask == target_mask:
             return path
 
@@ -82,19 +76,19 @@ def find_hamiltonian_path(board_size, ruleset_name, pieces, start_r, start_c):
         # Warnsdorff's Heuristic: Evaluate legal options by their onward degree
         branch_options = []
         for nr, nc, n_idx in legal_targets:
-            next_p_idx, next_parity = get_next_state(ruleset_name, active_piece_idx, nr, nc, parity_count, pieces)
+            next_p_idx = get_next_state(ruleset_name, active_piece_idx, nr, nc)
             next_visited = visited_mask | (1 << n_idx)
 
             # Count onward options for Warnsdorff sorting
             onward_moves = len(get_legal_moves(nr, nc, pieces[next_p_idx], next_visited, board_size))
-            branch_options.append((onward_moves, nr, nc, n_idx, next_p_idx, next_visited, next_parity))
+            branch_options.append((onward_moves, nr, nc, n_idx, next_p_idx, next_visited))
 
         # Sort by lowest onward degree first (Warnsdorff heuristic)
         branch_options.sort(key=lambda x: x[0])
 
-        for degree, nr, nc, n_idx, next_p_idx, next_visited, next_parity in branch_options:
+        for degree, nr, nc, n_idx, next_p_idx, next_visited in branch_options:
             path.append((nr, nc, pieces[next_p_idx]))
-            result = dfs(nr, nc, next_p_idx, next_visited, next_parity, path)
+            result = dfs(nr, nc, next_p_idx, next_visited, path)
             if result:
                 return result
             path.pop()  # Backtrack
@@ -102,7 +96,7 @@ def find_hamiltonian_path(board_size, ruleset_name, pieces, start_r, start_c):
         return None
 
     initial_path = [(start_r, start_c, pieces[0])]
-    return dfs(start_r, start_c, 0, initial_visited, 0, initial_path)
+    return dfs(start_r, start_c, 0, initial_visited, initial_path)
 
 
 # --- Interactive Terminal Interface ---
@@ -136,9 +130,14 @@ def main():
         except ValueError:
             print("Invalid input.")
 
-    # 3. Select Pieces
+    # 3. Select Pieces Dynamically Based on Ruleset
     piece_names = list(PIECE_VECTORS.keys())
-    required_pieces = 2 if ruleset_name == "2-cycle" else 3
+    if ruleset_name == "2-cycle":
+        required_pieces = 2
+    elif ruleset_name == "4-cycle":
+        required_pieces = 4
+    else:  # 3-cycle or 6-cycle
+        required_pieces = 3
 
     print(f"\nSelect {required_pieces} pieces from the roster:")
     for idx, p in enumerate(piece_names, 1):
