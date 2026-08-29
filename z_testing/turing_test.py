@@ -13,6 +13,7 @@ PIECE_VECTORS = {
     "CAMEL": [(1, 3), (3, 1), (-1, 3), (-3, 1), (1, -3), (3, -1), (-1, -3), (-3, -1)],
     "ZEBRA": [(2, 3), (3, 2), (-2, 3), (-3, 2), (2, -3), (3, -2), (-2, -3), (-3, -2)],
     "GIRAFFE": [(1, 4), (4, 1), (-1, 4), (-4, 1), (1, -4), (4, -1), (-1, -4), (-4, -1)],
+    "ANTELOPE": [(3, 4), (4, 3), (-3, 4), (-4, 3), (3, -4), (4, -3), (-3, -4), (-4, -3)],
 }
 
 RULESETS = ["2-cycle", "3-cycle", "4-cycle", "6-cycle"]
@@ -147,8 +148,8 @@ def main():
     for i in range(required_pieces):
         while True:
             try:
-                p_choice = int(input(f"Select Piece {i + 1} (1-11): "))
-                if 1 <= p_choice <= 11:
+                p_choice = int(input(f"Select Piece {i + 1} (1-12): "))
+                if 1 <= p_choice <= 12:
                     chosen_pieces.append(piece_names[p_choice - 1])
                     break
                 print("Please enter a number between 1 and 11.")
