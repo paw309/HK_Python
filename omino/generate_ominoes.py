@@ -53,18 +53,18 @@ def enumerate_polyominoes(n):
     return list(polyominoes)
 
 # Generate free x-ominoes
-tridecominoes = enumerate_polyominoes(13)
-print(f"generated {len(tridecominoes)} tridecominoes")
+tetradecominoes = enumerate_polyominoes(7)
+print(f"generated {len(tetradecominoes)} tetradecominoes")
 
 # Build output dict to match polyomino_data.py style
 output = "SAMPLE_POLYOMINOES = {\n"
-for idx, poly in enumerate(sorted(tridecominoes)):
+for idx, poly in enumerate(sorted(tetradecominoes)):
     coords = ", ".join(str(pt) for pt in poly)
-    output += f'    "13-{idx+1:03d}": [{coords}],\n'
+    output += f'    "14-{idx+1:03d}": [{coords}],\n'
 output += "}\n"
 
-with open("../pyversion/tourbus/polymath/tridecomino_data.py", "w") as f:
-    f.write('"""\nAuto-generated tridecominoes data.\n"""\n\n')
+with open("../pyversion/tourbus/polymath/tetradecomino_data.py", "w") as f:
+    f.write('"""\nAuto-generated tetradecominoes data.\n"""\n\n')
     f.write(output)
 
-print("tridecomino_data.py written")
+print("tetradecomino_data.py written")
