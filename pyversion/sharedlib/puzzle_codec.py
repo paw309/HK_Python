@@ -83,7 +83,7 @@ class PuzzleCodeError(Exception):
 if __name__ == "__main__":
     print("Generic Puzzle Codec Self-Test")
     print("=" * 50)
-    # Define test parameters for polyominoes
+    # Define test parameters for zpolyominoes
     test_params = {
         "board": 8,
         "shapes": "tetromino",
