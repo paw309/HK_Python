@@ -4,8 +4,12 @@ import sys
 
 # ─── Supported Pieces List ───────────────────────────────────────────────────
 SUPPORTED_PIECES = [
-    'knight', 'prince', 'squire', 'lancer', 'striker', 'ferzebra', 'ferzamel', 'courier',
-    'gnu', 'unicorn', 'aurochs', 'ostrich', 'impala', 'wapiti'
+    'knight',
+    'prince', 'squire', 'lancer', 'courier', 'striker', 'harrier',
+    'gnu', 'unicorn', 'aurochs', 'ostrich', 'impala', 'wapiti',
+    'wazamel', 'wazebra', 'ferzebra', 'zebbaba',
+    'bison', 'zebu', 'vicuna',
+    'frog', 'eft', 'toad', 'tadpole',
 ]
 
 
@@ -72,7 +76,7 @@ def main():
 
     # Tally remaining shapes by size (assuming shape IDs start with or contain the size prefix, e.g., "09-..." or "9_...")
     # Alternatively, extract size from the first two characters of the shape ID if formatted as "09..."
-    sizes = range(9, 15)
+    sizes = range(7, 14)
     size_counts = {size: 0 for size in sizes}
 
     for shape_id in filtered_shapes:

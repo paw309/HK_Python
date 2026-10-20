@@ -5,18 +5,40 @@ import sys
 # ─── Exact Piece Movement Vectors from PieceLibrary.ts ───────────────────────
 PIECE_VECTORS = {
     'knight': [[1, 2]],
+    'wazir': [[0, 1]],
     'prince': [[0, 1], [1, 2]],
     'squire': [[1, 1], [1, 2]],
     'lancer': [[0, 2], [1, 2]],
+    'courier': [[1, 2], [2, 2]],
     'striker': [[1, 2], [0, 3]],
+    'harrier': [[1, 2], [3, 3]],
     'gnu': [[1, 2], [1, 3]],
     'unicorn': [[1, 2], [2, 3]],
     'aurochs': [[1, 2], [1, 4]],
     'ostrich': [[1, 2], [1, 5]],
     'impala': [[1, 2], [3, 4]],
     'wapiti': [[1, 2], [2, 5]],
+    'wazipper': [[0, 1], [3, 3]],
+    'wazamel': [[0, 1], [1, 3]],
+    'wazebra': [[0, 1], [2, 3]],
+    'wazaffe': [[0, 1], [1, 4]],
+    'wazelope': [[0, 1], [3, 4]],
+    'wazelle': [[0, 1], [2, 5]],
+    'ferzeaper': [[1, 1], [0, 3]],
     'ferzebra': [[1, 1], [2, 3]],
-    'bison': [[1, 3], [2, 3]]
+    'ferzaffe': [[1, 1], [1, 4]],
+    'ferzelope': [[1, 1], [3, 4]],
+    'ferzelle': [[1, 1], [2, 5]],
+    'ferzingo': [[1, 1], [1, 6]],
+    'zebbaba': [[0, 2], [2, 3]],
+    'bison': [[1, 3], [2, 3]],
+    'zebu': [[1, 3], [1, 4]],
+    'vicuna': [[1, 3], [2, 5]],
+    'frog': [[1, 1], [0, 3]],
+    'eft': [[1, 1], [0, 5]],
+    'toad': [[0, 2], [0, 3]],
+    'tadpole': [[0, 3], [1, 3]],
+    'fibonacci': [[1, 1], [2, 3], [3, 5], [5, 8]]
 }
 
 
@@ -103,12 +125,12 @@ def main():
 
     base_dir = os.path.dirname(os.path.abspath(__file__))
     data_dir = os.path.join(base_dir, "hipcheck")
-    sizes = range(9, 15)  # 09 to 14
+    sizes = range(8, 14)  # 08 to 13
 
     valid_shapes = []
     size_counts = {size: 0 for size in sizes}
 
-    print(f"\nScanning polyomino libraries in '{data_dir}' (sizes 09-14) for piece: '{piece_name}'...")
+    print(f"\nScanning polyomino libraries in '{data_dir}' (sizes 08-13) for piece: '{piece_name}'...")
 
     for size in sizes:
         size_str = f"{size:02d}"
