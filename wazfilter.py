@@ -4,7 +4,8 @@ import sys
 
 # ─── Supported Pieces List ───────────────────────────────────────────────────
 SUPPORTED_PIECES = [
-    'prince', 'wazipper', 'wazamel', 'wazebra', 'wazaffe', 'wazelope', 'wazelle', 'ferzelope', 'ferzelle'
+    'prince',
+    'wazil', 'wazipper', 'wazamel', 'wazebra', 'wazaffe', 'wazibis', 'wazelope', 'wazelle',
 ]
 
 
