@@ -5,7 +5,6 @@ import sys
 # ─── Exact Piece Movement Vectors from PieceLibrary.ts ───────────────────────
 PIECE_VECTORS = {
     'knight': [[1, 2]],
-    'wazir': [[0, 1]],
     'prince': [[0, 1], [1, 2]],
     'squire': [[1, 1], [1, 2]],
     'lancer': [[0, 2], [1, 2]],
