@@ -9,26 +9,15 @@ from typing import List, Tuple, Set, Dict, Optional
 PLAYABLE_PIECES: Dict[str, List[Tuple[int, int]]] = {
     # Existing core roster
     "knight": [(1, 2)],
-    "zebra": [(2, 3)],
-    "unicorn": [(1, 2), (2, 3)],
-    "gnu": [(1, 2), (1, 3)],
-    "bison": [(1, 3), (2, 3)],
     "camel": [(1, 3)],
-    "zebu": [(1, 3), (1, 4)],
+    "zebra": [(2, 3)],
     "giraffe": [(1, 4)],
-
-    # Highly Playable New Candidates (Non-color-bound, bounded vectors <= 4)
-    "antelope": [(3, 4)],  # Long-range pure leaper
-    "squire": [(1, 1), (1, 2)],  # Ferz + Knight
-    "lancer": [(0, 2), (1, 2)],  # Dabbaba + Knight
-    "courier": [(1, 2), (2, 2)],  # Knight + Alfil
-    "striker": [(1, 2), (0, 3)],  # Knight + Threeleaper
-    "ferzeaper": [(1, 1), (0, 3)],  # Ferz + Zebra
-    "ferzebra": [(1, 1), (2, 3)],  # Ferz + Zebra
-    "ferzaffe": [(1, 1), (1, 4)],  # Ferz + Zebra
-    "ferzelope": [(1, 1), (3, 4)],  # Ferz + Zebra
-    "okapi": [(2, 3), (1, 4)],  # Zebra + Giraffe
-    "tadpole": [(0, 3), (1, 3)],  # Threeleaper + Camel
+    "antelope": [(3, 4)],
+    "gnu": [(1, 2), (1, 3)],
+    "unicorn": [(1, 2), (2, 3)],
+    "bison": [(1, 3), (2, 3)],
+    "zebu": [(1, 3), (1, 4)],
+    "okapi": [(2, 3), (1, 4)],
 }
 
 Position = Tuple[int, int]
@@ -116,7 +105,7 @@ def get_canonical_start_squares(board_size: int) -> List[Position]:
 
 
 # =============================================================================
-# SOLVER ENGINE (DEPTH-FIRST SEARCH)
+# SOLVER ENGINE (DEPTH-FIRST SEARCH WITH PATH COUNTING)
 # =============================================================================
 
 class PalisadesSolver:
@@ -129,6 +118,7 @@ class PalisadesSolver:
         self.total_squares = board_size * board_size
 
         self.best_path: List[Position] = []
+        self.max_path_count: int = 0
         self.start_time = 0.0
         self.timed_out = False
 
@@ -149,10 +139,15 @@ class PalisadesSolver:
             self.timed_out = True
             return
 
-        if len(path) > len(self.best_path):
+        current_len = len(path)
+        if current_len > len(self.best_path):
             self.best_path = list(path)
-            if len(self.best_path) == self.total_squares:
-                return  # Full Hamiltonian tour found
+            self.max_path_count = 1  # Reset count for the new higher record
+        elif current_len == len(self.best_path):
+            self.max_path_count += 1  # Found another distinct path of the same max length
+
+        if current_len == self.total_squares:
+            return  # Full Hamiltonian tour found, max possible length reached
 
         next_moves = self.get_legal_moves(current_pos, visited, path)
 
@@ -168,11 +163,12 @@ class PalisadesSolver:
             path.pop()
             visited.remove(move)
 
-            if len(self.best_path) == self.total_squares or self.timed_out:
+            if self.timed_out:
                 return
 
     def solve_from_start(self, start_pos: Position) -> Dict:
         self.best_path = [start_pos]
+        self.max_path_count = 1
         self.timed_out = False
         self.start_time = time.time()
 
@@ -183,6 +179,7 @@ class PalisadesSolver:
         return {
             "start_square": start_pos,
             "max_length": len(self.best_path),
+            "path_count": self.max_path_count,
             "is_hamiltonian": len(self.best_path) == self.total_squares,
             "path": self.best_path,
             "elapsed_sec": round(elapsed, 3),
@@ -195,9 +192,9 @@ class PalisadesSolver:
 # =============================================================================
 
 def main():
-    print("=" * 70)
-    print("PALISADES — LONGEST NON-CROSSING PATH SOLVER (5x5 to 10x10)")
-    print("=" * 70)
+    print("=" * 75)
+    print("PALISADES — LONGEST NON-CROSSING PATH SOLVER & COUNTER (5x5 to 10x10)")
+    print("=" * 75)
 
     print("\nHighly Playable Candidate Pieces:")
     pieces = list(PLAYABLE_PIECES.keys())
@@ -213,25 +210,28 @@ def main():
     time_limit = float(input("Enter Time Limit per start square in seconds (default 5.0): ") or "5.0")
 
     print(f"\nRunning Search for '{selected_piece}' on {board_size}x{board_size} board...")
-    print("-" * 70)
-    print(f"{'Start Square':<15} | {'Max Path Length':<16} | {'Hamiltonian?':<14} | {'Time (s)':<10}")
-    print("-" * 70)
+    print("-" * 75)
+    print(f"{'Start Square':<15} | {'Max Length':<10} | {'Path Count':<12} | {'Status':<12} | {'Time (s)':<8}")
+    print("-" * 75)
 
     canonical_starts = get_canonical_start_squares(board_size)
     overall_max = 0
+    total_max_paths_found = 0
 
     for start_sq in canonical_starts:
         solver = PalisadesSolver(selected_piece, board_size, time_limit_sec=time_limit)
         result = solver.solve_from_start(start_sq)
 
         overall_max = max(overall_max, result["max_length"])
-        status = "COMPLETE" if result["is_hamiltonian"] else ("TIMEOUT" if result["timed_out"] else "EXHAUSTED")
+        total_max_paths_found += result["path_count"]
+        status = "HAMILTONIAN" if result["is_hamiltonian"] else ("TIMEOUT" if result["timed_out"] else "EXHAUSTED")
 
-        print(f"{str(start_sq):<15} | {result['max_length']:<16} | {status:<14} | {result['elapsed_sec']:<10}")
+        print(f"{str(start_sq):<15} | {result['max_length']:<10} | {result['path_count']:<12} | {status:<12} | {result['elapsed_sec']:<8}")
 
-    print("-" * 70)
+    print("-" * 75)
     print(f"Overall Longest Path Found for {selected_piece} on {board_size}x{board_size}: {overall_max} squares")
-    print("=" * 70)
+    print(f"Total Unique Longest Path Variations Across Canonical Starts: {total_max_paths_found}")
+    print("=" * 75)
 
 
 if __name__ == "__main__":
