@@ -18,9 +18,6 @@ PLAYABLE_PIECES: Dict[str, List[Tuple[int, int]]] = {
     "bison": [(1, 3), (2, 3)],
     "zebu": [(1, 3), (1, 4)],
     "okapi": [(2, 3), (1, 4)],
-    "ferz": [(1, 1)],
-    "ferzelope": [(1, 1), (1, 4)],
-    "ferzelle": [(1, 1), (2, 5)],
 }
 
 Position = Tuple[int, int]
@@ -43,8 +40,8 @@ def segments_properly_intersect(p1: Position, p2: Position, p3: Position, p4: Po
     d4 = cross_product(p1, p2, p4)
 
     return (
-            ((d1 > 0 and d2 < 0) or (d1 < 0 and d2 > 0)) and
-            ((d3 > 0 and d4 < 0) or (d3 < 0 and d4 > 0))
+            ((d1 > 0 > d2) or (d1 < 0 < d2)) and
+            ((d3 > 0 > d4) or (d3 < 0 < d4))
     )
 
 
