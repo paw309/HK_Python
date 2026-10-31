@@ -1,3 +1,4 @@
+import json
 import math
 import time
 from typing import List, Tuple, Set, Dict, Optional
@@ -17,6 +18,7 @@ PLAYABLE_PIECES: Dict[str, List[Tuple[int, int]]] = {
     "bison": [(1, 3), (2, 3)],
     "zebu": [(1, 3), (1, 4)],
     "okapi": [(2, 3), (1, 4)],
+    "zebelope": [(2, 3), (3, 4)],
 }
 
 Position = Tuple[int, int]
@@ -31,9 +33,8 @@ def cross_product(o: Position, a: Position, b: Position) -> int:
 
 
 def segments_properly_intersect(p1: Position, p2: Position, p3: Position, p4: Position) -> bool:
-    # Quick bounding box check to reject non-intersecting segments instantly
     if (max(p1[0], p2[0]) < min(p3[0], p4[0]) or max(p3[0], p4[0]) < min(p1[0], p2[0]) or
-        max(p1[1], p2[1]) < min(p3[1], p4[1]) or max(p3[1], p4[1]) < min(p1[1], p2[1])):
+            max(p1[1], p2[1]) < min(p3[1], p4[1]) or max(p3[1], p4[1]) < min(p1[1], p2[1])):
         return False
 
     d1 = cross_product(p3, p4, p1)
@@ -42,8 +43,8 @@ def segments_properly_intersect(p1: Position, p2: Position, p3: Position, p4: Po
     d4 = cross_product(p1, p2, p4)
 
     return (
-        ((d1 > 0 > d2) or (d1 < 0 < d2)) and
-        ((d3 > 0 > d4) or (d3 < 0 < d4))
+            ((d1 > 0 > d2) or (d1 < 0 < d2)) and
+            ((d3 > 0 > d4) or (d3 < 0 < d4))
     )
 
 
@@ -51,9 +52,9 @@ def point_on_segment_interior(p: Position, a: Position, b: Position) -> bool:
     if cross_product(a, b, p) != 0:
         return False
     return (
-        min(a[1], b[1]) <= p[1] <= max(a[1], b[1]) and
-        min(a[0], b[0]) <= p[0] <= max(a[0], b[0]) and
-        p != a and p != b
+            min(a[1], b[1]) <= p[1] <= max(a[1], b[1]) and
+            min(a[0], b[0]) <= p[0] <= max(a[0], b[0]) and
+            p != a and p != b
     )
 
 
@@ -113,11 +114,11 @@ class PalisadesSolver:
         self.deltas = expand_patterns(self.vectors)
         self.total_squares = board_size * board_size
 
-        self.best_path: List[Position] = []
-        self.max_path_count: int = 0
+        self.best_paths: List[List[Position]] = []
+        self.max_path_length: int = 0
         self.start_time = 0.0
         self.timed_out = False
-        self.node_count = 0  # Used for throttling time checks
+        self.node_count = 0
 
     def get_legal_moves(self, current_pos: Position, visited: Set[Position], path: List[Position]) -> List[Position]:
         legal = []
@@ -132,7 +133,6 @@ class PalisadesSolver:
         return legal
 
     def _dfs(self, current_pos: Position, path: List[Position], visited: Set[Position]):
-        # Throttle time check every 256 node evaluations to reduce overhead
         self.node_count += 1
         if self.node_count & 255 == 0:
             if time.time() - self.start_time > self.time_limit_sec:
@@ -140,11 +140,12 @@ class PalisadesSolver:
                 return
 
         current_len = len(path)
-        if current_len > len(self.best_path):
-            self.best_path = list(path)
-            self.max_path_count = 1
-        elif current_len == len(self.best_path):
-            self.max_path_count += 1
+        if current_len > self.max_path_length:
+            self.max_path_length = current_len
+            self.best_paths = [list(path)]
+        elif current_len == self.max_path_length:
+            if path not in self.best_paths:
+                self.best_paths.append(list(path))
 
         if current_len == self.total_squares:
             return
@@ -165,8 +166,8 @@ class PalisadesSolver:
                 return
 
     def solve_from_start(self, start_pos: Position) -> Dict:
-        self.best_path = [start_pos]
-        self.max_path_count = 1
+        self.best_paths = [[start_pos]]
+        self.max_path_length = 1
         self.timed_out = False
         self.node_count = 0
         self.start_time = time.time()
@@ -177,13 +178,68 @@ class PalisadesSolver:
 
         return {
             "start_square": start_pos,
-            "max_length": len(self.best_path),
-            "path_count": self.max_path_count,
-            "is_hamiltonian": len(self.best_path) == self.total_squares,
-            "path": self.best_path,
+            "max_length": self.max_path_length,
+            "paths": self.best_paths,
             "elapsed_sec": round(elapsed, 3),
             "timed_out": self.timed_out
         }
+
+
+# =============================================================================
+# CUSTOM JSON EXPORTER (INLINE PATH FORMATTING)
+# =============================================================================
+
+def custom_format_json(obj, indent=1) -> str:
+    """Recursively formats dictionary data, enforcing inline single-line lists for paths."""
+
+    def format_val(v, level):
+        ind = " " * (level * indent)
+        next_ind = " " * ((level + 1) * indent)
+
+        if isinstance(v, dict):
+            if not v:
+                return "{}"
+            items = []
+            for k, val in v.items():
+                formatted_item = format_val(val, level + 1)
+                items.append(f'{next_ind}"{k}": {formatted_item}')
+            return "{\n" + ",\n".join(items) + f"\n{ind}}}"
+
+        elif isinstance(v, list):
+            # Check if this is the list of paths (list of integer lists)
+            if v and isinstance(v[0], list):
+                path_lines = []
+                for path in v:
+                    path_str = "[" + ",".join(map(str, path)) + "]"
+                    path_lines.append(f'{next_ind}{path_str}')
+                return "[\n" + ",\n".join(path_lines) + f"\n{ind}]"
+            else:
+                return json.dumps(v)
+
+        elif isinstance(v, str):
+            return json.dumps(v)
+        else:
+            return str(v)
+
+    return format_val(obj, 0)
+
+
+def export_results_to_json(piece_name: str, board_size: int, results_dict: dict, filename: Optional[str] = None):
+    if not filename:
+        filename = f"{piece_name}_board_{board_size}.json"
+
+    output_data = {
+        piece_name: {
+            str(board_size): results_dict
+        }
+    }
+
+    formatted_string = custom_format_json(output_data, indent=1)
+
+    with open(filename, "w", encoding="utf-8") as f:
+        f.write(formatted_string)
+
+    print(f"\nSuccessfully exported formatted results to '{filename}'")
 
 
 # =============================================================================
@@ -192,7 +248,7 @@ class PalisadesSolver:
 
 def main():
     print("=" * 75)
-    print("PALISADES — LONGEST NON-CROSSING PATH SOLVER & COUNTER (5x5 to 10x10)")
+    print("PALISADES — LONGEST NON-CROSSING PATH SOLVER & CUSTOM JSON EXPORTER")
     print("=" * 75)
 
     print("\nHighly Playable Candidate Pieces:")
@@ -214,6 +270,10 @@ def main():
     print("-" * 75)
 
     canonical_starts = get_canonical_start_squares(board_size)
+
+    known_starts_data = {}
+    estimated_starts_data = {}
+
     overall_max = 0
     total_max_paths_found = 0
 
@@ -222,10 +282,46 @@ def main():
         result = solver.solve_from_start(start_sq)
 
         overall_max = max(overall_max, result["max_length"])
-        total_max_paths_found += result["path_count"]
-        status = "HAMILTONIAN" if result["is_hamiltonian"] else ("TIMEOUT" if result["timed_out"] else "EXHAUSTED")
+        total_max_paths_found += len(result["paths"])
 
-        print(f"{str(start_sq):<15} | {result['max_length']:<10} | {result['path_count']:<12} | {status:<12} | {result['elapsed_sec']:<8}")
+        status = "TIMEOUT" if result["timed_out"] else "EXHAUSTED"
+        if len(result["paths"]) > 0 and len(result["paths"][0]) == board_size * board_size:
+            status = "HAMILTONIAN"
+
+        print(
+            f"{str(start_sq):<15} | {result['max_length']:<10} | {len(result['paths']):<12} | {status:<12} | {result['elapsed_sec']:<8}")
+
+        sq_key = f"{start_sq[0]},{start_sq[1]}"
+
+        # Convert (r, c) tuples into flattened linear cell indices (r * board_size + c)
+        formatted_paths = [
+            [r * board_size + c for r, c in path_seq]
+            for path_seq in result["paths"]
+        ]
+
+        sq_entry = {
+            "length": result["max_length"],
+            "paths": formatted_paths
+        }
+
+        if result["timed_out"]:
+            estimated_starts_data[sq_key] = sq_entry
+        else:
+            known_starts_data[sq_key] = sq_entry
+
+    board_output_section = {}
+    if known_starts_data:
+        board_output_section["known"] = {
+            "length": max([v["length"] for v in known_starts_data.values()], default=0),
+            "starts": known_starts_data
+        }
+    if estimated_starts_data:
+        board_output_section["estimated"] = {
+            "length": max([v["length"] for v in estimated_starts_data.values()], default=0),
+            "starts": estimated_starts_data
+        }
+
+    export_results_to_json(selected_piece, board_size, board_output_section)
 
     print("-" * 75)
     print(f"Overall Longest Path Found for {selected_piece} on {board_size}x{board_size}: {overall_max} squares")
