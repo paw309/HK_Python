@@ -18,7 +18,8 @@ PLAYABLE_PIECES: Dict[str, List[Tuple[int, int]]] = {
     "bison": [(1, 3), (2, 3)],
     "zebu": [(1, 3), (1, 4)],
     "okapi": [(2, 3), (1, 4)],
-    "zebelope": [(2, 3), (3, 4)],
+    "nyala": [(2, 3), (3, 4)],
+
 }
 
 Position = Tuple[int, int]
