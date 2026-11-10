@@ -35,7 +35,7 @@ PLAYABLE_PIECES: Dict[str, List[Tuple[int, int]]] = {
 }
 
 Position = Tuple[int, int]
-MAX_STORED_PATHS = 1000
+MAX_STORED_PATHS = 500
 
 
 # =============================================================================
