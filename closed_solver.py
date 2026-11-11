@@ -25,17 +25,17 @@ PLAYABLE_PIECES: Dict[str, List[Tuple[int, int]]] = {
     "antelope": [(3, 4)],
     "gnu": [(1, 2), (1, 3)],
     "unicorn": [(1, 2), (2, 3)],
-    "dromedary": [(0, 3), (1, 3)],
     "bison": [(1, 3), (2, 3)],
     "zebu": [(1, 3), (1, 4)],
-    "quagga": [(0, 2), (2, 3)],
-    "eland": [(2, 2), (2, 3)],
     "okapi": [(2, 3), (1, 4)],
     "nyala": [(2, 3), (3, 4)],
+    "quagga": [(0, 2), (2, 3)],
+    "eland": [(2, 2), (2, 3)],
+    "dromedary": [(0, 3), (1, 3)],
 }
 
 Position = Tuple[int, int]
-MAX_STORED_PATHS = 500
+MAX_STORED_PATHS = 1000
 
 
 # =============================================================================
