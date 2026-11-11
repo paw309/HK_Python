@@ -5,6 +5,7 @@ import sys
 # ─── Exact Piece Movement Vectors from PieceLibrary.ts ───────────────────────
 PIECE_VECTORS = {
     'knight': [[1, 2]],
+    'bingo': [[1, 6], [2, 4]],
     'prince': [[0, 1], [1, 2]],
     'squire': [[1, 1], [1, 2]],
     'lancer': [[0, 2], [1, 2]],
@@ -13,10 +14,11 @@ PIECE_VECTORS = {
     'harrier': [[1, 2], [3, 3]],
     'gnu': [[1, 2], [1, 3]],
     'unicorn': [[1, 2], [2, 3]],
-    'aurochs': [[1, 2], [1, 4]],
+    'dromedary': [[0, 3], [1, 3]],
     'ostrich': [[1, 2], [1, 5]],
     'impala': [[1, 2], [3, 4]],
     'wapiti': [[1, 2], [2, 5]],
+    'nyala': [[2, 3], [3, 4]],
     'wazil': [[0, 1], [2, 2]],
     'wazipper': [[0, 1], [3, 3]],
     'wazamel': [[0, 1], [1, 3]],
