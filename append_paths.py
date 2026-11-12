@@ -23,9 +23,9 @@ def compact_json_arrays(json_str):
 
 def main():
     # Accept user input for the file name to be appended, with a default suggestion
-    input_filename = input("Enter the filename containing the paths to append (default: camel_board_9.json): ").strip()
+    input_filename = input("Enter the filename containing the paths to append (default: knight_board_9.json): ").strip()
     if not input_filename:
-        input_filename = "camel_board_9.json"
+        input_filename = "knight_board_9.json"
 
     paths_filename = "paths.json"
 
