@@ -23,7 +23,6 @@ PLAYABLE_PIECES: Dict[str, List[Tuple[int, int]]] = {
     "dromedary": [(0, 3), (1, 3)],
     "bison": [(1, 3), (2, 3)],
     "zebu": [(1, 3), (1, 4)],
-    "bharal": [(1, 3), (3, 4)],
     "quagga": [(0, 2), (2, 3)],
     "eland": [(2, 2), (2, 3)],
     "unicorn": [(2, 3), (1, 4)],
@@ -32,12 +31,8 @@ PLAYABLE_PIECES: Dict[str, List[Tuple[int, int]]] = {
     "markhor": [(0, 3), (2, 3)],
     "ibex": [(0, 3), (1, 4)],
     "argali": [(0, 3), (2, 4)],
-    "ferzebra": [(1, 1), (2, 3)],
-    "ferzaffe": [(1, 1), (1, 4)],
-    "ferzelope": [(1, 1), (3, 4)],
-    "ferzelle": [(1, 1), (2, 5)],
-    "ferzingo": [(1, 1), (1, 6)],
     "frog": [(1, 1), (0, 3)],
+    "vicuna": [(1, 3), (2, 5)],
 }
 
 Position = Tuple[int, int]
