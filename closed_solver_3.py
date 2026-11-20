@@ -17,22 +17,18 @@ PLAYABLE_PIECES: Dict[str, List[Tuple[int, int]]] = {
     "camel": [(1, 3)],
     "zebra": [(2, 3)],
     "giraffe": [(1, 4)],
-    "antelope": [(3, 4)],
     "gnu": [(1, 2), (1, 3)],
-    "okapi": [(1, 2), (2, 3)],
     "dromedary": [(0, 3), (1, 3)],
-    "bison": [(1, 3), (2, 3)],
-    "zebu": [(1, 3), (1, 4)],
-    "vicuna": [(1, 3), (2, 5)],
     "quagga": [(0, 2), (2, 3)],
-    "eland": [(2, 2), (2, 3)],
-    "unicorn": [(2, 3), (1, 4)],
-    "nyala": [(2, 3), (3, 4)],
     "chamois": [(0, 3), (2, 2)],
     "markhor": [(0, 3), (2, 3)],
     "ibex": [(0, 3), (1, 4)],
     "argali": [(0, 3), (2, 4)],
     "frog": [(1, 1), (0, 3)],
+    "da": [(0, 2), (3, 4)],
+    "3a": [(0, 3), (3, 4)],
+    "fs": [(1, 1), (2, 4)],
+    "4z": [(0, 4), (2, 3)],
 }
 
 Position = Tuple[int, int]
@@ -154,7 +150,7 @@ class MoveGraph:
         self.np_conf_idx = np.array(idx if idx else [0], dtype=np.int32)
         self.np_colour = np.array([(c // n + c % n) & 1 for c in range(V)], dtype=np.int8)
 
-        # rotation tables: sym[m] = (sym_v, sym_e) holding g^0..g^(m-1) for the
+        # rotation tables: sym[m] = (sym_v, sym_e) holding g^0.g^(m-1) for the
         # 360/m-degree rotation (m = 1 is the identity, i.e. no symmetry constraint)
         def rot(r, c):
             return c, n - 1 - r
@@ -247,7 +243,7 @@ def _open_bound(cur, visited, blocked, adj_len, adj_dest, adj_edge, colour, alte
 def _closed_bound(cur, start, first, length, visited, blocked, adj_len, adj_dest, adj_edge,
                   colour, alternating, vis_col, mark, alive, deg, queue, stamp):
     """Upper bound on how many more squares a closed tour can add, given the current path
-    start..cur; -1 if the tour can no longer be closed through unvisited squares.
+    start.cur; -1 if the tour can no longer be closed through unvisited squares.
 
     The rest of the tour is a path cur -> x1 -> ... -> xk -> start, so every xi needs two
     usable (unblocked) edges into {unvisited} + {cur, start}. Squares failing that are
@@ -354,9 +350,9 @@ def _search_kernel(prefix, total, adj_len, adj_dest, adj_edge, conf_ptr, conf_id
     (usually just the start square) and closes back to prefix[0].
     Records tours of length >= lower_bound (ties are counted/stored too).
 
-    sym_v/sym_e (shape (m, V) / (m, E)) are the powers g^0..g^(m-1) of a board rotation g.
+    sym_v/sym_e (shape (m, V) / (m, E)) are the powers g^0.g^(m-1) of a board rotation g.
     With m > 1 only tours invariant under g are searched: the kernel builds one arc
-    P = start..w and the tour is P, gP, ..., g^(m-1)P, closed by the move w -> g(start).
+    P = start.w and the tour is P, gP, ..., g^(m-1)P, closed by the move w -> g(start).
     Every square/move is added together with its images, so the depth drops m-fold.
 
     With `reflect` (m = 2, g a mirror) the tour is P followed by g(P) reversed: the arc starts
@@ -449,7 +445,7 @@ def _search_kernel(prefix, total, adj_len, adj_dest, adj_edge, conf_ptr, conf_id
                         break
     base = prefix.shape[0] - 1
     # Each tour is found in both directions; for a plain search keep only the direction whose
-    # first move goes to a lower-numbered square than the last one (halves the search).
+    # first move goes to a lower-numbered squarer than the last one (halves the search).
     break_dir = base == 0 and m_sym == 1 and not open_mode
     d = base
     entering = True
@@ -779,7 +775,7 @@ def _open_seed_worker(args):
 
 def _open_lns_worker(args):
     """Phase 2 (open paths): like _lns_worker, but on a path from `start`. Cut squares
-    i+1..i+k and search for a new connection from path[i] to path[i+k+1] (the rest of the path
+    i+1.i+k and search for a new connection from path[i] to path[i+k+1] (the rest of the path
     stays fixed); sometimes drop the whole remainder and regrow the end freely instead."""
     import random
     piece, size, time_limit, start, path, seed = args[:6]
