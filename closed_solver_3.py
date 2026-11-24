@@ -30,6 +30,7 @@ PLAYABLE_PIECES: Dict[str, List[Tuple[int, int]]] = {
     "fs": [(1, 1), (2, 4)],
     "4z": [(0, 4), (2, 3)],
     "ds": [(0, 2), (2, 4)],
+    "eft": [(1, 1), (0, 5)],
 }
 
 Position = Tuple[int, int]
